@@ -84,6 +84,11 @@ def update_name_tag(instance_id, hostname):
 # Updates a Route53 record
 def update_record(zone_id, ip, hostname, operation):
     logger.info("Changing record with %s for %s -> %s in %s", operation, hostname, ip, zone_id)
+
+    ttl = 300
+    if 'ttl' in os.environ and os.environ['ttl'].isdigit():
+        ttl = int(os.environ['ttl'])
+
     route53.change_resource_record_sets(
         HostedZoneId=zone_id,
         ChangeBatch={
@@ -93,7 +98,7 @@ def update_record(zone_id, ip, hostname, operation):
                     'ResourceRecordSet': {
                         'Name': hostname,
                         'Type': 'A',
-                        'TTL': 300,
+                        'TTL': ttl,
                         'ResourceRecords': [{'Value': ip}]
                     }
                 }

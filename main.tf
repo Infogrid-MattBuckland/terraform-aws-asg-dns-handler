@@ -116,6 +116,7 @@ resource "aws_lambda_function" "autoscale_handling" {
   environment {
     variables = {
       "use_public_ip" = var.use_public_ip
+      "ttl"           = var.ttl
     }
   }
 }

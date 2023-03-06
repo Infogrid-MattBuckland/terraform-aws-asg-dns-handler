@@ -43,6 +43,7 @@ module "clever_name_autoscale_dns" {
   autoscale_handler_unique_identifier = "clever_name"
   autoscale_route53zone_arn           = "ABCDEFGHIJ123"
   vpc_name                            = "my_vpc"
+  ttl                                 = 60
 }
 ```
 
